@@ -2,12 +2,13 @@ on:
   workflow_dispatch:
   pull_request:
     types: [ opened ]
+    
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref }}
+  cancel-in-progress: true
 
 jobs:
   check-name:
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.head_ref }}
-      cancel-in-progress: true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
